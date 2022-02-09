@@ -13,9 +13,9 @@ import java.util.stream.Stream;
 
 public class CSVReader {
 
-    final static String countriesCSV="C:\\Projects\\webAPI4\\app\\countries.csv";
-    final static String airportsCSV="C:\\Projects\\webAPI4\\app\\airports.csv";
-    final static String runwaysCSV="C:\\Projects\\webAPI4\\app\\runways.csv";
+    final static String countriesCSV="C:\\Projects\\webAPI4\\app\\resources\\countries.csv";
+    final static String airportsCSV="C:\\Projects\\webAPI4\\app\\resources\\airports.csv";
+    final static String runwaysCSV="C:\\Projects\\webAPI4\\app\\resources\\runways.csv";
 
 
     public static HashMap<String, List<String>> getAirPortsOfSelectedCountry(String input){
