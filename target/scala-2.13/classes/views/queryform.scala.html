@@ -1,0 +1,12 @@
+@()
+
+@main("Hello World") {
+  @defining(play.core.PlayVersion.current) { version =>
+  <form method="post" action="@routes.HomeController.postRes">
+    <h1>Search Airports by Country Code</h1>
+    <input type="text" name="query" /><br/>
+    <input type="submit" value="Search" />
+  </form>
+
+  }
+}
