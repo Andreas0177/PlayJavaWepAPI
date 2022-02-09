@@ -30,7 +30,7 @@ public class HomeController extends Controller {
     }
 
 
-    public Result postRes(Http.Request request) {
+    public Result result(Http.Request request) {
         DynamicForm requestData = formFactory.form().bindFromRequest(request);
         String input = requestData.get("query");
         HashMap<String, List<String>> out=CSVReader.getAirPortsOfSelectedCountry(input);
@@ -42,7 +42,7 @@ public class HomeController extends Controller {
 
         Report report=CSVReader.getReport();
 
-        return ok("Report:"+report);
+        return ok("Report:"+report.toString());
 
     }
 

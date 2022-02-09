@@ -10,6 +10,17 @@ public class Report{
     HashMap<String, List<String>> typeofRunwaysByCountries;
     String status;
 
+    @Override
+    public String toString() {
+        return "Report{" +
+                "top10=" + top10 +
+                ", bottom10=" + bottom10 +
+                ", mostCommonRunwayIDS=" + mostCommonRunwayIDS +
+                ", typeofRunwaysByCountries=" + typeofRunwaysByCountries +
+                ", status='" + status + '\'' +
+                '}';
+    }
+
     public String getStatus() {
         return status;
     }

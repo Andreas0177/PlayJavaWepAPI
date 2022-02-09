@@ -111,7 +111,7 @@ public class CSVReader {
 
             for (CSVRecord record : records) {//read airports csv line
 
-                String country=record.get("iso_county");
+                String country=record.get("iso_country");
                 int id=Integer.parseInt(record.get("id"));
 
                 if (NumberOfAirportsByCountry.get(country)==null){
