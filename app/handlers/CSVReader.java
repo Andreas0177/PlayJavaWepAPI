@@ -4,6 +4,8 @@ import models.Report;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 
+import javax.inject.Singleton;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -11,11 +13,23 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
+@Singleton
 public class CSVReader {
 
     final static String countriesCSV="C:\\Projects\\webAPI4\\app\\resources\\countries.csv";
     final static String airportsCSV="C:\\Projects\\webAPI4\\app\\resources\\airports.csv";
     final static String runwaysCSV="C:\\Projects\\webAPI4\\app\\resources\\runways.csv";
+
+    FileReader incountriesCSV;
+    FileReader inairportsCSV;
+    FileReader inrunwaysCSV;
+
+    public CSVReader() throws FileNotFoundException {
+        incountriesCSV = new FileReader(countriesCSV);
+        inairportsCSV = new FileReader(airportsCSV);
+        inrunwaysCSV = new FileReader(runwaysCSV);
+    }
 
 
     public static HashMap<String, List<String>> getAirPortsOfSelectedCountry(String input){
@@ -25,8 +39,9 @@ public class CSVReader {
 
         try{
 
-            FileReader in = new FileReader(countriesCSV);
-            Iterable<CSVRecord> records=CSVFormat.DEFAULT.withHeader().parse(in);
+            //FileReader in = new FileReader(countriesCSV);
+            //Iterable<CSVRecord> records=CSVFormat.DEFAULT.withHeader().parse(in);
+            Iterable<CSVRecord> records=CSVFormat.DEFAULT.withHeader().parse(incountriesCSV);
 
             for (CSVRecord record : records) {
                 if(record.get("code").equals(input) || record.get("name").equals(input)){
@@ -48,8 +63,8 @@ public class CSVReader {
             System.out.println("selectedCountryCode:"+selectedCountryCode);
             if(selectedCountryCode!=null){
 
-                in = new FileReader(airportsCSV);
-                records=CSVFormat.DEFAULT.withHeader().parse(in);
+                //in = new FileReader(airportsCSV);
+                records=CSVFormat.DEFAULT.withHeader().parse(inairportsCSV);
 
                 Map<Integer, String> AirportsOfSelectedCountry = new HashMap<Integer, String>();
 
@@ -64,8 +79,8 @@ public class CSVReader {
 
                 InfOfAirportsOfSelectedCountry = new HashMap<String, List<String>>();
 
-                in = new FileReader(runwaysCSV);
-                records=CSVFormat.DEFAULT.withHeader().parse(in);
+                //in = new FileReader(runwaysCSV);
+                records=CSVFormat.DEFAULT.withHeader().parse(inrunwaysCSV);
 
                 for (CSVRecord record : records) {//read runways csv line
 
