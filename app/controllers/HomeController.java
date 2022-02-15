@@ -7,6 +7,7 @@ import play.mvc.*;
 import play.data.*;
 import repositories.LocalCSVRepo;
 import services.QueryService;
+import services.ReportService;
 
 import javax.inject.*;
 import java.util.HashMap;
@@ -15,6 +16,8 @@ import java.util.List;
 public class HomeController extends Controller {
 
     @Inject FormFactory formFactory;
+
+    @Inject LocalCSVRepo repo;
 
 
     public Result explore() {
@@ -33,7 +36,7 @@ public class HomeController extends Controller {
         return ok(views.html.queryform.render());
     }
 
-
+    /*
     public Result result(Http.Request request) {
         DynamicForm requestData = formFactory.form().bindFromRequest(request);
         String input = requestData.get("query");
@@ -41,13 +44,22 @@ public class HomeController extends Controller {
         return ok("AirPortsOfSelectedCountry:"+out);
 
     }
-
-    public Result result2(Http.Request request) {
+     */
+    public Result result(Http.Request request) {
         DynamicForm requestData = formFactory.form().bindFromRequest(request);
-        List<Airport> airports = QueryService.getQueryResult(new LocalCSVRepo(), requestData.get("query"));//new LocalCSVRepo() is wrong it must be done with injection
-        return ok("AirPortsOfSelectedCountry:"+airports);
+        String input = requestData.get("query");
+        List<Airport> out = QueryService.getQueryResult(repo, input);
+        return ok("AirPortsOfSelectedCountry:"+out);
     }
 
+    public Result getReport() {
+
+        Report report= ReportService.getReport(repo);
+
+        return ok("Report:"+report.toString());
+
+    }
+    /*
     public Result getReport() {
 
         Report report=CSVReader.getReport();
@@ -55,6 +67,8 @@ public class HomeController extends Controller {
         return ok("Report:"+report.toString());
 
     }
+
+     */
 
 
 }

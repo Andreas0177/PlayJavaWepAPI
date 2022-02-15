@@ -14,6 +14,15 @@ public class Runway {
         this.airportId = airportId;
     }
 
+    @Override
+    public String toString() {
+        return "Runway{" +
+                "id='" + id + '\'' +
+                ", type='" + type + '\'' +
+                ", airportId='" + airportId + '\'' +
+                '}';
+    }
+
     public String getId() {
         return id;
     }

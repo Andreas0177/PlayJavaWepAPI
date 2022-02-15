@@ -6,6 +6,7 @@ import models.Runway;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.FileReader;
 import java.io.IOException;
@@ -20,14 +21,20 @@ public class LocalCSVRepo implements CSVRepository{
     List<Runway> runways=new ArrayList<>();
     List<Country> countries=new ArrayList<>();
 
+    //final static String countriesCSV="C:\\Projects\\webAPI4\\app\\resources\\countries.csv";//wrong must be changed with relative path
+    //final static String airportsCSV="C:\\Projects\\webAPI4\\app\\resources\\airports.csv";
+    //final static String runwaysCSV="C:\\Projects\\webAPI4\\app\\resources\\runways.csv";
+
     final static String countriesCSV="C:\\Projects\\webAPI4\\app\\resources\\countries.csv";//wrong must be changed with relative path
     final static String airportsCSV="C:\\Projects\\webAPI4\\app\\resources\\airports.csv";
     final static String runwaysCSV="C:\\Projects\\webAPI4\\app\\resources\\runways.csv";
 
+    @Inject
     public LocalCSVRepo(){
         //load local csv files
 
         try{
+
 
             Reader in = new FileReader(airportsCSV);
             Iterable<CSVRecord> records= CSVFormat.DEFAULT.withHeader().parse(in);
@@ -38,19 +45,29 @@ public class LocalCSVRepo implements CSVRepository{
             in = new FileReader(runwaysCSV);
             records= CSVFormat.DEFAULT.withHeader().parse(in);
 
-            for (CSVRecord record : records) //read airports csv line
+            for (CSVRecord record : records) //read runways csv line
                 addRunway(new Runway(record.get("le_ident"),record.get("surface"),record.get("airport_ref")));
 
             in = new FileReader(countriesCSV);
             records= CSVFormat.DEFAULT.withHeader().parse(in);
 
-            for (CSVRecord record : records) //read airports csv line
+            for (CSVRecord record : records) //read countries csv line
                 addCountry(new Country(record.get("name"),record.get("code")));
 
 
         }catch(IOException e){
             System.out.println("Server IO Error");
         }
+    }
+
+    public Airport getAirport(String id){
+
+        return null;
+    }
+
+    public Airport getRunways(String id){
+
+        return null;
     }
 
     @Override
